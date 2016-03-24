@@ -32,7 +32,7 @@ Each module must have a file named `module.json` in the `module` directory. This
 
 ### Module Actions
 
-Your module file with define a number of actions that it can perform. Every module must define both start and stop, but can define as many others as you wish. Each action can be defined in one of two ways. First, you can set the action to just a string. For example you could assign 'start' to 'begin' and 'begin' would be passed as the first parameter to your executable (`executable start`). The other way you can define an action is to assign the action to an object. This gives you some more options for configuring how your action will work.
+Your module file with define a number of actions that it can perform. Every module must define both start and stop, but can define as many others as you wish. Each action can be defined in one of two ways and all actions can accept either type. First, you can set the action to just a string. For example you could assign 'start' to 'begin' and 'begin' would be passed as the first parameter to your executable (`executable start`). The other way you can define an action is to assign the action to an object. This gives you some more options for configuring how your action will work.
 
 ```
 {
@@ -67,7 +67,7 @@ MultiBand will show a "next" arrow for the button
 
 #### playpause
 
-MultiBand will show play pause bars for the button
+MultiBand will show play/pause bars for the button
 
 #### status
 

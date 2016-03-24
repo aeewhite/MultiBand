@@ -11,5 +11,5 @@ To add modules to your own setup, clone a module's git repo into the modules dir
 ## Goals
 
  - Runnable as a daemon in the background
-	 - init scripts to integrate with sytem
+	 - init scripts to integrate with system
  - Fully modular and as solid as possible 

@@ -63,5 +63,12 @@ The above are the only two actions that absolutely must be defined but others ca
 
 #### next
 
+MultiBand will show a "next" arrow for the button
 
 #### playpause
+
+MultiBand will show play pause bars for the button
+
+#### status
+
+Optionally you can pass data back to MultiBand by responding to the status action. Text printed to stdout will be passed back to the interface

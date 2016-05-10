@@ -1,7 +1,33 @@
-// Find Modules in ../modules
+//Set up logger
+
+var logger = require('./logging.js');
+logger.log("");
+logger.info("Starting ModuleManager");
+logger.log("");
+
+
+// Find Modules in ./modules
+var fs = require('fs'),
+    path = require('path');
+
+function getDirectories(srcpath) {
+  var directories = fs.readdirSync(srcpath).filter(function(file) {
+    return fs.statSync(path.join(srcpath, file)).isDirectory();
+  });
+  return directories.map(function(folder){return __dirname + "/" + folder;});
+}
+
+var moduleDirectories = getDirectories(__dirname + "/modules");
+
+logger.info("Scanning " +moduleDirectories.length  + " possible modules");
+
+
+
 
 var express = require('express');
 var app = express();
+logger.info("Express server created");
+
 
 
 
@@ -16,5 +42,5 @@ app.get('/', function (req, res) {
 
 
 app.listen(3000, function () {
-	console.log('App listening on port 3000');
+	logger.info('App listening on port 3000');
 });

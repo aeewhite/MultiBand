@@ -36,10 +36,12 @@ function fileExists(filename){
 
 function checkIfModule(folder){
 	//Check if folder contains a module.json
-	console.log(fileExists(folder + "/module/module.json"));
-	
+	if(!fileExists(folder + "/module/module.json")){
+		return false;
+	}
 }
-moduleDirectories.map(checkIfModule);
+
+moduleDirectories.filter(checkIfModule);
 
 
 

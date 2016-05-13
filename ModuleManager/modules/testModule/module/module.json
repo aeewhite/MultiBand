@@ -1,0 +1,9 @@
+{
+    "name": "Test Module",
+    "version": "0.0.1",
+    "executable": "script.sh",
+    "actions" : {
+        "start": "start",
+        "stop": "stop"
+    }
+}

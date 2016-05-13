@@ -55,7 +55,7 @@ var moduleSchema = {
 
 
 function checkIfModule(folder){
-	var moduleName = folder.split(path.sep).slice(-1)[0];
+	var moduleName = folder.split(path.sep).slice(-1)[0]; //take the last element
 	//Check if folder contains module/module.json
 	if(!fileExists(folder + "/module/module.json")){
 		logger.warn(moduleName + " does not contain a module.json file, ignoring");
@@ -81,8 +81,6 @@ function checkIfModule(folder){
 }
 
 moduleDirectories = moduleDirectories.filter(checkIfModule);
-
-
 
 
 /*

@@ -1,9 +1,9 @@
-//Set up logger
+/*
+Set up logger
+ */
 
 var logger = require('./logging.js');
-logger.log("");
 logger.info("Starting ModuleManager");
-logger.log("");
 
 
 /*
@@ -34,19 +34,59 @@ function fileExists(filename){
 	return true;
 }
 
+// Prepare to validate module files
+var Validator = require("jsonschema").Validator;
+var moduleValidator = new Validator();
+var moduleSchema = {
+	"id": "/Module",
+	"type":"object",
+	"properties": {
+		"name": {"type":"string"},
+		"version": {"type":"string"},
+		"executable": {"type":"string"},
+		"actions": {
+			"type": "object",
+			"required": ["start", "stop"]
+		}
+	},
+	"required": ["name", "version", "executable","actions"]
+};
+
+
+
 function checkIfModule(folder){
-	//Check if folder contains a module.json
+	var moduleName = folder.split(path.sep).slice(-1)[0];
+	//Check if folder contains module/module.json
 	if(!fileExists(folder + "/module/module.json")){
+		logger.warn(moduleName + " does not contain a module.json file, ignoring");
 		return false;
 	}
+
+	//Do some validation on the module file
+	var moduleFile = JSON.parse(fs.readFileSync(folder + "/module/module.json", 'utf8'));
+	if(moduleValidator.validate(moduleFile, moduleSchema).errors.length !== 0){
+		logger.warn(moduleName + "contains an error in module.json, ignoring");
+		logger.debug(moduleValidator.validate(moduleFile, moduleSchema).errors);
+		return false;
+	}
+
+	//Check that executable exists
+	if(!fileExists(folder + "/module/" + moduleFile.executable)){
+		logger.warn(moduleName + " missing executable file, ignoring");
+		return false;
+	}
+
+	return true;
 }
 
-moduleDirectories.filter(checkIfModule);
+moduleDirectories = moduleDirectories.filter(checkIfModule);
 
 
 
 
-
+/*
+Start up the web server
+ */
 var express = require('express');
 var app = express();
 logger.info("Express server created");

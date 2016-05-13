@@ -64,9 +64,10 @@ function checkIfModule(folder){
 
 	//Do some validation on the module file
 	var moduleFile = JSON.parse(fs.readFileSync(folder + "/module/module.json", 'utf8'));
-	if(moduleValidator.validate(moduleFile, moduleSchema).errors.length !== 0){
+	var errors = moduleValidator.validate(moduleFile, moduleSchema).errors;
+	if(errors.length !== 0){
 		logger.warn(moduleName + "contains an error in module.json, ignoring");
-		logger.debug(moduleValidator.validate(moduleFile, moduleSchema).errors);
+		logger.debug(errors);
 		return false;
 	}
 

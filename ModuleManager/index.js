@@ -6,6 +6,7 @@ var logger = require('./logging.js');
 logger.info("Starting ModuleManager");
 
 
+
 /*
 Find Modules in ./modules 
  */
@@ -66,14 +67,14 @@ function checkIfModule(folder){
 	var moduleFile = JSON.parse(fs.readFileSync(folder + "/module/module.json", 'utf8'));
 	var errors = moduleValidator.validate(moduleFile, moduleSchema).errors;
 	if(errors.length !== 0){
-		logger.warn(moduleName + "contains an error in module.json, ignoring");
-		logger.debug(errors);
+		logger.warn(moduleFile.name + " contains an error in module.json, ignoring");
+		logger.debug("["+ moduleFile.name +"] " + errors[0].message);
 		return false;
 	}
 
 	//Check that executable exists
 	if(!fileExists(folder + "/module/" + moduleFile.executable)){
-		logger.warn(moduleName + " missing executable file, ignoring");
+		logger.warn(moduleFile.name + " missing executable file, ignoring");
 		return false;
 	}
 
@@ -100,8 +101,6 @@ Start up the web server
 var express = require('express');
 var app = express();
 logger.info("Express server created");
-
-
 
 
 

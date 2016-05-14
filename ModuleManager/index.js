@@ -82,6 +82,17 @@ function checkIfModule(folder){
 
 moduleDirectories = moduleDirectories.filter(checkIfModule);
 
+/*
+Convert module path to module objects
+ */
+var Module = require("./module.js").Module;
+var modules = [];
+for(var i = 0; i<moduleDirectories.length; i++){
+	modules.push(new Module(moduleDirectories[i]));
+}
+
+
+
 
 /*
 Start up the web server

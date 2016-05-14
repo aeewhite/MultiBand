@@ -109,6 +109,10 @@ app.get('/', function (req, res) {
 	res.send('Hello World!');
 });
 
+app.get('/modules',function(req, res){
+	res.send(modules);
+});
+
 
 
 app.listen(3000, function () {

@@ -10,8 +10,8 @@ function Module(modulePath){
 	this.executable = modulePath + "/module/" + moduleFile.executable;
 	this.version = moduleFile.version;
 	this.actions = moduleFile.actions;
-	this.moduleFile = moduleFile;
-	logger.info("Loaded " + this.moduleName);
+	//this.moduleFile = moduleFile; //Don't really need this
+	logger.info("Loaded '" + this.moduleName + "'");
 
 	//Call the executable with message as the first argument
 	this.sendMessage = sendMessage;

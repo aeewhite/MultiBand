@@ -59,7 +59,7 @@ function checkIfModule(folder){
 	var moduleName = folder.split(path.sep).slice(-1)[0]; //take the last element
 	//Check if folder contains module/module.json
 	if(!fileExists(folder + "/module/module.json")){
-		logger.warn(moduleName + " does not contain a module.json file, ignoring");
+		logger.warn("'" + moduleName + "' does not contain a module.json file, ignoring");
 		return false;
 	}
 
@@ -67,14 +67,14 @@ function checkIfModule(folder){
 	var moduleFile = JSON.parse(fs.readFileSync(folder + "/module/module.json", 'utf8'));
 	var errors = moduleValidator.validate(moduleFile, moduleSchema).errors;
 	if(errors.length !== 0){
-		logger.warn(moduleFile.name + " contains an error in module.json, ignoring");
+		logger.warn("'" + moduleFile.name + "' contains an error in module.json, ignoring");
 		logger.debug("["+ moduleFile.name +"] " + errors[0].message);
 		return false;
 	}
 
 	//Check that executable exists
 	if(!fileExists(folder + "/module/" + moduleFile.executable)){
-		logger.warn(moduleFile.name + " missing executable file, ignoring");
+		logger.warn("'" + moduleFile.name + "' missing executable file, ignoring");
 		return false;
 	}
 
@@ -106,10 +106,11 @@ logger.info("Express server created");
 var currentModule = null;
 
 app.get('/', function (req, res) {
-	res.send('Hello World!');
+	res.send('Hello World! Welcome to Module Manager');
 });
 
 app.get('/modules',function(req, res){
+	logger.debug("Sent module list to client");
 	res.send(modules);
 });
 

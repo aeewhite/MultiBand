@@ -20,10 +20,26 @@ function Module(modulePath){
 /**
  * Call the executable with message as the first argument
  * @param  {String} message argument to call executable with
- * @return {int}	return code
  */
 function sendMessage(message){
 	var module = this;
+
+	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
+	var child = execFile(this.executable, [message], {
+		cwd: this.path
+	});
+
+	child.stdout.on('data',function(data){
+		data.trim().split(/\r?\n/).forEach(function(value, i){	//Split module outputs to make log look better
+			logger.info("[" + module.moduleName + "] " + value.trim());
+		});
+	});
+	child.stderr.on('data',function(data){
+		data.trim().split(/\r?\n/).forEach(function(value, i){
+			logger.error("[" + module.moduleName + "] " + value.trim());
+		});
+	});
+}
 	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
 	var child = execFile(this.executable, [message], {
 		cwd: this.path

@@ -103,7 +103,7 @@ var app = express();
 logger.info("Express server created");
 
 
-
+var currentModule = null;
 
 app.get('/', function (req, res) {
 	res.send('Hello World!');
@@ -113,7 +113,32 @@ app.get('/modules',function(req, res){
 	res.send(modules);
 });
 
+app.get('/setModule/:moduleNumber', function(req,res){
+	if(req.params.moduleNumber > modules.length - 1 || req.params.moduleNumber < 0){
+		logger.error("Attempt to set module failed, index out of bounds (" + req.params.moduleNumber + " was sent)");
+		res.status(400).send("Error: Module not found");
+	}
+	else{
+		currentModule = modules[req.params.moduleNumber];
+		logger.info("Set current module to '" + modules[req.params.moduleNumber].moduleName + "'");
+		res.send(modules[req.params.moduleNumber]);
+	}
+});
 
+app.get('/sendMessage/:command', function(req, res){
+	if(!currentModule){
+		logger.error("Attempt to send command '" + req.params.command + "' failed, no module set");
+		res.status(400).send("Error: Module not set");
+	}
+	else if(!currentModule.actions[req.params.command]){
+		logger.error("Attempt to send command '" + req.params.command + "' failed, module does not support");
+		res.status(400).send("Error: Module does not support '" + req.params.command + "'");
+	}
+	else{
+		currentModule.sendMessage(req.params.command);
+		res.send("Command sent successfully to " + currentModule.moduleName);
+	}
+});
 
 app.listen(3000, function () {
 	logger.info('App listening on port 3000');

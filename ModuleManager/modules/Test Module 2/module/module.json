@@ -1,6 +1,6 @@
 {
-    "name": "Test Module Copy",
-    "version": "0.0.1",
+    "name": "Test Module Two",
+    "version": "0.0.2",
     "executable": "script.sh",
     "actions" : {
         "start": "start",

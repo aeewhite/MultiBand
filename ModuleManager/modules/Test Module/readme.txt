@@ -1,0 +1,1 @@
+This module is meant to demonstrate how stdout and stderr are treated in the logs 

@@ -43,6 +43,12 @@ function sendMessage(message){
 	});
 }
 
+
+/**
+ * Call the executable with message as the first argument, but wait for the command to exit
+ * @param  {String}   message  argument to call executable with
+ * @param  {Function} callback Function to call when executable exits with stdout as only argument
+ */
 function sendMessageWithResponse(message, callback){
 	var module = this;
 	var output = "";

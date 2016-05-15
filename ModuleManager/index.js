@@ -141,6 +141,22 @@ app.get('/sendMessage/:command', function(req, res){
 	}
 });
 
+app.get('/sendMessageWithResponse/:command', function(req, res){
+	if(!currentModule){
+		logger.error("Attempt to send command '" + req.params.command + "' failed, no module set");
+		res.status(400).send("Error: Module not set");
+	}
+	else if(!currentModule.actions[req.params.command]){
+		logger.error("Attempt to send command '" + req.params.command + "' failed, module does not support");
+		res.status(400).send("Error: Module does not support '" + req.params.command + "'");
+	}
+	else{
+		currentModule.sendMessageWithResponse(req.params.command, function(output){
+			res.set('Content-Type','text/plain').send(output);
+		});
+	}
+});
+
 app.listen(3000, function () {
 	logger.info('App listening on port 3000');
 });

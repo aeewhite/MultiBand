@@ -1,7 +1,8 @@
-var logger		= require('./logging.js'),
-	execFile	= require('child_process').execFile,
-	path 		= require('path'),
-	fs 			= require('fs');
+var logger			= require('./logging.js'),
+	execFile		= require('child_process').execFile,
+	execFileSync	= require('child_process').execFileSync,
+	path 			= require('path'),
+	fs 				= require('fs');
 
 function Module(modulePath){
 	var moduleFile = JSON.parse(fs.readFileSync(modulePath + "/module/module.json", 'utf8'));
@@ -15,6 +16,7 @@ function Module(modulePath){
 
 	//Call the executable with message as the first argument
 	this.sendMessage = sendMessage;
+	this.sendMessageWithResponse = sendMessageWithResponse;
 }
 
 /**
@@ -40,13 +42,21 @@ function sendMessage(message){
 		});
 	});
 }
+
+function sendMessageWithResponse(message, callback){
+	var module = this;
+	var output = "";
+
 	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
 	var child = execFile(this.executable, [message], {
 		cwd: this.path
+	}, function(error,stdout, stderr){
+		callback(output.trim());
 	});
 	
 	child.stdout.on('data',function(data){
 		data.trim().split(/\r?\n/).forEach(function(value, i){	//Split module outputs to make log look better
+			output += value + require('os').EOL;
 			logger.info("[" + module.moduleName + "] " + value.trim());
 		});
 		

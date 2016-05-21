@@ -1,3 +1,3 @@
 echo "Playing applause.wav"
 
-play -q module/applause.wav
+play -q applause.wav

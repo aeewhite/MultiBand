@@ -28,7 +28,7 @@ function sendMessage(message){
 
 	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
 	var child = execFile(this.executable, [message], {
-		cwd: this.path
+		cwd: this.path + "/module/"
 	});
 
 	child.stdout.on('data',function(data){
@@ -55,7 +55,7 @@ function sendMessageWithResponse(message, callback){
 
 	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
 	var child = execFile(this.executable, [message], {
-		cwd: this.path
+		cwd: this.path + "/module/"
 	}, function(error,stdout, stderr){
 		callback(output.trim());
 	});

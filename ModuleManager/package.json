@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "apicache": "0.0.14",
     "express": "^4.13.4",
     "jsonschema": "^1.1.0",
     "winston": "^2.2.0"

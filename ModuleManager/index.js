@@ -91,6 +91,7 @@ var modules = [];
 for(var i = 0; i<moduleDirectories.length; i++){
 	modules.push(new Module(moduleDirectories[i]));
 }
+logger.info("Successfully loaded " + modules.length + " modules");
 
 
 
@@ -98,18 +99,20 @@ for(var i = 0; i<moduleDirectories.length; i++){
 /*
 Start up the web server
  */
-var express = require('express');
+var express = require('express'),
+	apicache = require('apicache').middleware;
+
 var app = express();
 logger.info("Express server created");
 
 
 var currentModule = null;
 
-app.get('/', function (req, res) {
+app.get('/', apicache('5 minutes'), function (req, res) {
 	res.send('Hello World! Welcome to Module Manager');
 });
 
-app.get('/modules',function(req, res){
+app.get('/modules', apicache('5 minutes'), function(req, res){
 	logger.debug("Sent module list to client");
 	res.send(modules);
 });
@@ -157,6 +160,8 @@ app.get('/sendMessageWithResponse/:command', function(req, res){
 	}
 });
 
-app.listen(3000, function () {
-	logger.info('App listening on port 3000');
+
+var port = 5005;
+app.listen(port, function () {
+	logger.info('App listening on port ' + port);
 });

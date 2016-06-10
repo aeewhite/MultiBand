@@ -162,6 +162,17 @@ app.get('/sendMessageWithResponse/:command', function(req, res){
 
 
 var port = 5005;
-app.listen(port, function () {
+var server = app.listen(port, function () {
 	logger.info('App listening on port ' + port);
+});
+
+process.on('SIGINT', function () {
+	if(currentModule){
+		logger.info("Shutting down current module");
+		currentModule.sendMessage("stop");
+	}
+	if(server){
+		logger.info("Shutting down Express server");
+		server.close();
+	}
 });

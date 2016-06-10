@@ -25,9 +25,10 @@ function Module(modulePath){
  */
 function sendMessage(message){
 	var module = this;
+	var arg = this.actions[message];
 
 	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
-	var child = execFile(this.executable, [message], {
+	var child = execFile(this.executable, [arg], {
 		cwd: this.path + "/module/"
 	});
 
@@ -52,10 +53,12 @@ function sendMessage(message){
  */
 function sendMessageWithResponse(message, callback){
 	var module = this;
+	var arg = this.actions[message];
+
 	var output = "";
 
 	logger.debug("[=>" + module.moduleName + "] Sending '" + message + "' to " + module.moduleName);
-	var child = execFile(this.executable, [message], {
+	var child = execFile(this.executable, [arg], {
 		cwd: this.path + "/module/"
 	}, function(error,stdout, stderr){
 		callback(output.trim());

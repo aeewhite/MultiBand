@@ -32,12 +32,13 @@ function sendMessage(message){
 	});
 
 	child.stdout.on('data',function(data){
-		data.trim().split(/\r?\n/).forEach(function(value, i){	//Split module outputs to make log look better
+		//Split module outputs to make log look better
+		data.toString('utf8').trim().split(/\r?\n/).forEach(function(value, i){
 			logger.info("[" + module.moduleName + "] " + value.trim());
 		});
 	});
 	child.stderr.on('data',function(data){
-		data.trim().split(/\r?\n/).forEach(function(value, i){
+		data.toString('utf8').trim().split(/\r?\n/).forEach(function(value, i){
 			logger.error("[" + module.moduleName + "] " + value.trim());
 		});
 	});
@@ -61,14 +62,14 @@ function sendMessageWithResponse(message, callback){
 	});
 	
 	child.stdout.on('data',function(data){
-		data.trim().split(/\r?\n/).forEach(function(value, i){	//Split module outputs to make log look better
+		data.toString('utf8').trim().split(/\r?\n/).forEach(function(value, i){	//Split module outputs to make log look better
 			output += value + require('os').EOL;
 			logger.info("[" + module.moduleName + "] " + value.trim());
 		});
 		
 	});
 	child.stderr.on('data',function(data){
-		data.trim().split(/\r?\n/).forEach(function(value, i){
+		data.toString('utf8').trim().split(/\r?\n/).forEach(function(value, i){
 			logger.error("[" + module.moduleName + "] " + value.trim());
 		});
 	});

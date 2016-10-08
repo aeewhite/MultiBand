@@ -30,7 +30,7 @@
 					console.log(data.actions);
 					$.each(data.actions, function(key, value){
 						console.log("test");
-						$("<button>").addClass("module-action").text(key).data("message", value).appendTo(".controls");
+						$("<button>").addClass("module-action").text(value).data("message", key).appendTo(".controls");
 						$(".controls").append("<br>");
 						
 					});

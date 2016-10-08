@@ -29,3 +29,29 @@ html,body {
 	float: right;
 	border-left: 1px solid #eee;
 }
+
+/* Button Styles */
+
+button {
+  color: #fff;
+  background-color: #6496c8;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px #27496d;
+  font-size: 20px;
+  margin: 20px;
+  width: 200px;
+  height: 50px
+}
+
+button:hover,
+section.press button.hover {
+  background-color: #417cb8
+}
+
+button:active,
+button.active {
+  background-color: #417cb8;
+  box-shadow: 0 5px #27496d;
+  transform: translateY(5px);
+}

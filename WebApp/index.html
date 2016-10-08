@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MultiBand Remote Control</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+	<div class="moduleList">
+	</div>
+	<div class="controls">
+		controls and stuff
+	</div>
+
+	<script type="text/javascript">
+
+		var modules = {};
+
+		$.get("http://"+window.location.hostname+":5005/modules", function(data){
+			modules = data;
+			for(var i = 0; i < data.length; i++){
+				$('<div>').addClass("module").data("modulenumber", i).text(data[i].moduleName).appendTo(".moduleList");
+			}
+			$(".module").click(function(){
+				var actions;
+				var modNum= $(this).data("modulenumber");
+				$.get("http://"+window.location.hostname+":5005/setmodule/"+modNum, function(data){
+					$(".controls").empty();
+					$("<h1>").text(data.moduleName).appendTo(".controls");
+					console.log(data.actions);
+					$.each(data.actions, function(key, value){
+						console.log("test");
+						$("<button>").addClass("module-action").text(key).data("message", value).appendTo(".controls");
+						$(".controls").append("<br>");
+						
+					});
+
+					$(".module-action").click(function(){
+						var message = $(this).data("message");
+						$.get("http://"+window.location.hostname+":5005/sendmessage/"+message);
+					});
+
+				});
+			});
+		});
+
+
+
+	</script>
+</body>
+</html>

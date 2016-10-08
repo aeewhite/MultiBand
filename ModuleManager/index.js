@@ -100,10 +100,13 @@ logger.info("Successfully loaded " + modules.length + " modules");
 Start up the web server
  */
 var express = require('express'),
-	apicache = require('apicache').middleware;
+	apicache = require('apicache').middleware,
+	cors = require('cors');
 
 var app = express();
 logger.info("Express server created");
+
+app.use(cors());
 
 
 var currentModule = null;

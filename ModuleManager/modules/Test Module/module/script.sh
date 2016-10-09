@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ "$1" == "start" ]; then
 	echo "They sent start, so let's go"
 fi

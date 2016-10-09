@@ -7,3 +7,4 @@
 	SyslogIdentifier=mb-webapp
 	User=andrew
 [Install]
+	WantedBy=multiband-modulemanager.service

@@ -7,3 +7,4 @@
 	SyslogIdentifier=mb-modulemanager
 	User=andrew
 [Install]
+	Wanted-By=multi-user.target

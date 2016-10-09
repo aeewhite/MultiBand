@@ -1,0 +1,9 @@
+[Service]
+	ExecStart=/usr/bin/node /home/andrew/MultiBand/ModuleManager/index.js
+	Restart=always
+	StandardOutput=syslog
+	StandardError=syslog
+	SyslogIdentifier=mb-modulemanager
+	User=andrew
+[Install]
+WantedBy=multi-user.target

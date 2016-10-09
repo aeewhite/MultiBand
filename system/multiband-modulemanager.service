@@ -1,4 +1,5 @@
 [Service]
+	Wants=multiband-webapp.service
 	ExecStart=/usr/bin/node /home/andrew/MultiBand/ModuleManager/index.js
 	Restart=always
 	StandardOutput=syslog
@@ -6,4 +7,3 @@
 	SyslogIdentifier=mb-modulemanager
 	User=andrew
 [Install]
-WantedBy=multi-user.target

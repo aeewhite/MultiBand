@@ -1,0 +1,9 @@
+[Service]
+	ExecStart=/home/andrew/MultiBand/WebApp/webserver.sh
+	Restart=always
+	StandardOutput=syslog
+	StandardError=syslog
+	SyslogIdentifier=mb-webapp
+	User=andrew
+[Install]
+WantedBy=multi-user.target

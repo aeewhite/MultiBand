@@ -1,5 +1,7 @@
-[Service]
+[Unit]
 	Wants=multiband-webapp.service
+
+[Service]
 	ExecStart=/usr/bin/node /home/andrew/MultiBand/ModuleManager/index.js
 	Restart=always
 	StandardOutput=syslog

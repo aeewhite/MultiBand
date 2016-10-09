@@ -2,4 +2,4 @@
 
 echo "Playing applause.wav"
 
-play -q applause.wav
+aplay -q applause.wav
